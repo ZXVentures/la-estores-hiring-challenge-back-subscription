@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest-cov = "*"
+safety = "*"
+codecov = "*"
+mock = "*"
+pytest = "*"
+
+[packages]
+boto3 = "*"
+requests = "*"
+SQLAlchemy = "*"
+pytz = "*"
+
+[requires]
+python_version = "3.7"

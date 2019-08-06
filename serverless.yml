@@ -1,0 +1,30 @@
+
+service: la-estores-hiring-challenge-back-subscription
+
+
+provider:
+  name: aws
+  runtime: python2.7
+  stage: develop
+  region: us-west-2
+  cfLogs: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:PutLogEvents
+        - ec2:CreateNetworkInterface
+        - ec2:DescribeNetworkInterfaces
+        - ec2:DeleteNetworkInterface
+      Resource: '*'
+
+functions:    
+
+package:
+  exclude:
+    - .env/**
+    - tests/**
+    - deploy/**
+    - downloads/**
+    - operational_coding/**
