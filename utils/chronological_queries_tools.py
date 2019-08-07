@@ -12,8 +12,8 @@ class ChronologicalQueriesTools():
         self.session = session
         self.reference_date = DateUtility.utc_now()
     
-    def group_subscriptions_per_current_status(self):
-        csh_t = self.session.query(
+    def group_active_subscriptions_per_current_status(self):
+        cssh_temp = self.session.query(
             SubscriptionStatusHistory,
             func.row_number().\
             over(
@@ -24,15 +24,24 @@ class ChronologicalQueriesTools():
             filter(
                 SubscriptionStatusHistory.effect_date <= self.reference_date 
                 ).\
-            subquery('csh_t')
-        csh = self.session.query(
-            csh_t
-            ).\
+            subquery('cssh_temp')
+        # cssh_cancelled = self.session.query(
+        #     SubscriptionStatusHistory
+        #     ).\
+        #     filter(
+        #         SubscriptionStatusHistory.status_id == Status.CANCELLED
+        #     ).\
+        #     subquery('cssh_cancelled')
+        current_subscription_status_history = self.session.query(cssh_temp).\
+            # join(cssh_cancelled, ssh.c.subscription_id != cssh_temp.c.subscription_id).\
             filter(
-                csh_t.c.row_number == 1
+                cssh_temp.c.row_number == 1
             ).\
-            subquery('csh')
+            subquery('current_subscription_status_history')
         
-        return csh
+        
+        
+        
+        return current_subscription_status_history
         
         

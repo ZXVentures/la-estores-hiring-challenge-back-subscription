@@ -78,7 +78,6 @@ class Status(Base):
     ACTIVE = 1
     CANCELLED = 2
     PAUSED = 3
-    HALTED = 4
     
 class SubscriptionStatusHistory(Base):
     __tablename__ = 'subscription_status_history'
