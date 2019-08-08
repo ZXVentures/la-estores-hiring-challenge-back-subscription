@@ -1,0 +1,9 @@
+{
+    "database_type":"postgresql",
+    "driver":"psycopg2",
+    "db_user":"model_user",
+    "db_password":"model_pass",
+    "db_host":"localhost",
+    "db_port":"5432",
+    "db_name":"model_database"
+}

@@ -5,9 +5,6 @@ logging.basicConfig()
 log = logging.getLogger()
 log.setLevel(logging.INFO)
 
-from la_estores_wrappers.utils.config import BaseConfig
-from la_estores_wrappers.connectors import database_adapter
-
 class Database(object):
 
     def __init__(self,secret_name):

@@ -31,7 +31,6 @@ def get_engine(conn_string):
     return _CONNECTIONS[conn_string]['engine']
 
 def get_conn_string(
-        self,
         database_type,
         driver,
         db_user,

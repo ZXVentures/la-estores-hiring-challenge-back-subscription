@@ -57,10 +57,9 @@ class Subscription(Base):
     id = Column("id",String(36), primary_key=True, default=str(uuid.uuid4()))
     
     club_id = Column(Integer, ForeignKey('club.id', ondelete="RESTRICT"))
-    customer_store_id = Column(String(36), ForeignKey('customer.store_id', ondelete="RESTRICT"))
+    customer_store_id = Column(String(36))
     create_date = Column(DateTime, default=DateUtility.utc_now)
     
-    customer = relationship("Customer",back_populates="subscription_list",uselist=False)
     club = relationship("Club",back_populates="subscription_list",uselist=False)
     subscription_status_history = relationship("SubscriptionStatusHistory",back_populates="subscription")
 
@@ -93,10 +92,27 @@ class SubscriptionStatusHistory(Base):
     subscription = relationship("Subscription",back_populates="subscription_status_history")
     status = relationship("Status",back_populates="subscription_status_history")
     
-def build_model(engine):
-    drop_model(engine)
-    Base.metadata.create_all(bind=engine)
-
-def drop_model(engine):
-    Base.metadata.drop_all(bind=engine)
+    def build_model(engine):
+        #use: https://stackoverflow.com/questions/24622170/using-alembic-api-from-inside-application-code
+        drop_model(engine)
+    #     Base.metadata.create_all(bind=engine)
+    #     from alembic import config as Config
+        import alembic.config
+    #     alembic -x stage=test upgrade head
+        alembicArgs = [
+            '-x', 'scope=local',
+            'upgrade', 'head',
+        ]
+        alembic.config.main(argv=alembicArgs)
+    
+    def drop_model(engine):
+        import alembic.config
+    #     alembic -x stage=test upgrade head
+        alembicArgs = [
+            '-x', 'stage=local',
+            'downgrade', 'base',
+        ]
+        alembic.config.main(argv=alembicArgs)
+        
+        Base.metadata.drop_all(bind=engine)
     

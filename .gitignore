@@ -10,8 +10,8 @@ venv
 .lenv/
 .wenv/
 *.orig
-local/
 Pipfile.lock
+local/local.json
 
 vendored/
 .serverless/

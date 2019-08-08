@@ -9,12 +9,14 @@ safety = "*"
 codecov = "*"
 mock = "*"
 pytest = "*"
+alembic = "*"
 
 [packages]
 boto3 = "*"
 requests = "*"
 SQLAlchemy = "*"
 pytz = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"

@@ -6,7 +6,7 @@ from repositories.subscription_repository import SubscriptionRepository
 from datetime import datetime,timedelta
 
 @Network()
-@Database()
+@Database('la-estores-hiring-challenge-back-subscription-dbaccess')
 def update_status(session,event,context):
 
     body = event['body']
