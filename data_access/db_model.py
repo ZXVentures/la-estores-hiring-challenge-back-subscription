@@ -16,7 +16,7 @@ class ClubStatus(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     
     name = Column(String(256))
-    description = Column(String(256))
+    create_date = Column(DateTime, default=DateUtility.utc_now)
     
     club_status_history = relationship("ClubStatusHistory", back_populates="club_status")
 
@@ -29,7 +29,7 @@ class ClubStatusHistory(Base):
 
     id = Column(String(36), primary_key=True, default=str(uuid.uuid4()))
     
-    club_id = Column(String(36), ForeignKey('club.id', ondelete="RESTRICT"))
+    club_id = Column(Integer, ForeignKey('club.id', ondelete="RESTRICT"))
     club_status_id = Column(Integer, ForeignKey('club_status.id', ondelete="RESTRICT"))
     effect_date = Column(DateTime, default=DateUtility.utc_now())
     create_date = Column(DateTime, default=DateUtility.utc_now())
@@ -69,7 +69,6 @@ class Status(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     
     name = Column(String(128))
-    description = Column(String(256))
     create_date = Column(DateTime, default=DateUtility.utc_now())
     
     subscription_status_history = relationship("SubscriptionStatusHistory", back_populates="status")

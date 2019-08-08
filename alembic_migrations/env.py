@@ -20,9 +20,9 @@ config = context.config
 # with the path given in the config of the main code
 # ------------------------------------------------------
 # command for generating new migration:
-# alembic -x scope=test revision --autogenerate -m "Added feedback table"
+# alembic -x scope=local revision --autogenerate -m "Initial Migration"
 # command for migrating db:
-# alembic -x scope=test upgrade head
+# alembic -x scope=local upgrade head
 def get_local_connstring():
     import json
     from adapters import database_adapter
