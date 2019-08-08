@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 from decorators.network_decorator import Network
 from decorators.database_decorator import Database
@@ -12,7 +13,7 @@ def update_status(session,event,context):
     body = event['body']
     subscription_id = body['subscription_id']
     status_id = body['status_id']
-    effect_date = datetime.strptime(body['effect_date'], "%Y-%m-%dT%H:%M:%S.%fZ")
+    effect_date = datetime.strptime(body['effect_date'], "%Y-%m-%dT%H:%M:%S.%f")
     details = body.get('details')
     interval = int(body['interval'])
 
@@ -26,10 +27,10 @@ def update_status(session,event,context):
 
     if status_id == Status.PAUSED:
         subscription_repository = SubscriptionRepository(session)
-        return_date = effect_date.timedelta(interval)
+        return_date = effect_date + timedelta(interval)
         subscription_repository.insert_status(
             subscription_id,
-            status_id,
+            Status.ACTIVE,
             return_date,
             'Automatic return schedule'
         )

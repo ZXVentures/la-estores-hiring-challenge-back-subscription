@@ -2,7 +2,6 @@
 
 import os, sys
 import json
-from la_estores_wrappers.utils.config import BaseConfig, Tenant
 
 import logging
 logging.basicConfig()
@@ -23,7 +22,9 @@ class Network(object):
                 "statusCode": 500
             }
             
-            result = f(event=event,context=context,tenant=tenant)
+            event['body'] = json.loads(event['body'])
+            
+            result = f(event=event,context=context)
             
             response['body'] = result
             response['statusCode'] = 200

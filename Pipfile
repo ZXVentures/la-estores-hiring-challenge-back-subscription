@@ -4,11 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pytest = "*"
 pytest-cov = "*"
 safety = "*"
 codecov = "*"
 mock = "*"
-pytest = "*"
 alembic = "*"
 
 [packages]

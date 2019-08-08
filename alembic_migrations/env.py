@@ -6,11 +6,10 @@ sys.path.append(os.path.join(here, '.'))
 sys.path.append(os.path.join(here, '..'))
 
 from logging.config import fileConfig
-
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-
 from alembic import context
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -26,6 +25,7 @@ config = context.config
 def get_local_connstring():
     import json
     from adapters import database_adapter
+    from adapters.aws_secrets_adapter import AWSSecretsAdapter
     arguments = context.get_x_argument(as_dictionary=True)
     scope = arguments.get('scope')
     if scope == 'build':
