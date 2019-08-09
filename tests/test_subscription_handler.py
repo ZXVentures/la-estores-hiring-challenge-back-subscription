@@ -34,9 +34,8 @@ class TestSubscriptionHandler(TestBase):
 
         event = {
             'queryStringParameters': None,
-            'pathParameters': None,
+            'pathParameters': {'id':f"{subscription_id}"},
             'body': f'''{{
-                "subscription_id":"{subscription_id}",
                 "status_id":{Status.PAUSED},
                 "effect_date":"{reference_date_iso}",
                 "interval":30

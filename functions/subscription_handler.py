@@ -11,7 +11,7 @@ from datetime import datetime,timedelta
 def update_status(session,event,context):
 
     body = event['body']
-    subscription_id = body['subscription_id']
+    subscription_id = body['id']
     status_id = body['status_id']
     effect_date = datetime.strptime(body['effect_date'], "%Y-%m-%dT%H:%M:%S.%f")
     details = body.get('details')

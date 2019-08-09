@@ -23,6 +23,7 @@ class Network(object):
             }
             
             event['body'] = json.loads(event['body'])
+            event['body']['id'] = event['pathParameters']['id']
             
             result = f(event=event,context=context)
             
