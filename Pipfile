@@ -12,8 +12,6 @@ mock = "*"
 alembic = "*"
 
 [packages]
-boto3 = "*"
-requests = "*"
 SQLAlchemy = "*"
 pytz = "*"
 psycopg2 = "*"

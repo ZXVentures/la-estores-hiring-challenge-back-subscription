@@ -21,12 +21,9 @@ reference_date = datetime.strptime(reference_date_iso, "%Y-%m-%dT%H:%M:%S.%f")
 
 class TestSubscriptionHandler(TestBase):
 
-    
-    @patch('adapters.aws_secrets_adapter.AWSSecretsAdapter.get_secret', side_effect=lambda *args: json.loads(open(f'local/local.json').read()))
     @patch('utils.date_utility.DateUtility.utc_now', side_effect=lambda:reference_date)
     def test_update_status_pause(
         self
-        ,datetime_mock
         ,boto_mock
         ):
 

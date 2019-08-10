@@ -1,5 +1,4 @@
 import logging
-from adapters.aws_secrets_adapter import AWSSecretsAdapter
 from adapters import database_adapter
 
 logging.basicConfig()
@@ -8,21 +7,17 @@ log.setLevel(logging.INFO)
 
 class Database(object):
 
-    def __init__(self,secret_name):
-        self.secret_name = secret_name
-
     def __call__(self, f):
         
-        def run(**kwargs):
+        def run(configs_adapter,**kwargs):
             
-            secrets_adapter = AWSSecretsAdapter()
-            database_configs = secrets_adapter.get_secret(self.secret_name)
+            database_configs = configs_adapter.get_config('database')
             conn_string = database_adapter.get_conn_string(**database_configs)
             session = database_adapter.get_connection(conn_string)
             
             try:
         
-                response = f(session=session, **kwargs)
+                response = f(session=session,configs_adapter=configs_adapter, **kwargs)
                 
                 session.commit()
                 

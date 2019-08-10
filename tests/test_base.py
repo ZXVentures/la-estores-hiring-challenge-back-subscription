@@ -11,7 +11,7 @@ from sqlalchemy.orm import RelationshipProperty, class_mapper
 from sqlalchemy.orm.mapper import Mapper
 from adapters import database_adapter
 from data_access.db_model import build_model, drop_model, Subscription, Club
-
+from adapters.configs_adapter import ConfigsAdapter
 
 class TestBase(object):
 
@@ -59,9 +59,8 @@ class TestBase(object):
     def setup(self):
         print('\nSetting Up!\n')
 
-        with open(f"{here}/../local/local.json",'r') as file:
-            contents = file.read()
-            database_configs = json.loads(contents)
+        configs_adapter = ConfigsAdapter('local')
+        database_configs = configs_adapter.get_config('database')
 
         conn_string = database_adapter.get_conn_string(**database_configs)
 

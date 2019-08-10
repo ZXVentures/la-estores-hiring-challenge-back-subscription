@@ -25,17 +25,11 @@ config = context.config
 def get_local_connstring():
     import json
     from adapters import database_adapter
-    from adapters.aws_secrets_adapter import AWSSecretsAdapter
+    from adapters.configs_adapter import ConfigsAdapter
     arguments = context.get_x_argument(as_dictionary=True)
     scope = arguments.get('scope')
-    if scope == 'build':
-        secrets_adapter = AWSSecretsAdapter()
-        database_configs = secrets_adapter.get_secret('la-estores-hiring-challenge-back-subscription-dbaccess')
-        conn_string = database_adapter.get_conn_string(**database_configs)
-    else:
-        with open(f"{here}/../local/{scope}.json",'r') as file:
-            contents = file.read()
-            database_configs = json.loads(contents)
+    configs_adapter = ConfigsAdapter(scope)
+    database_configs = configs_adapter.get_config('database')
 
     conn_string = database_adapter.get_conn_string(**database_configs)
     return conn_string

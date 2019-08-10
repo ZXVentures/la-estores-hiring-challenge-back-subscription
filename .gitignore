@@ -11,7 +11,7 @@ venv
 .wenv/
 *.orig
 Pipfile.lock
-local/local.json
+local_config.json
 
 vendored/
 .serverless/

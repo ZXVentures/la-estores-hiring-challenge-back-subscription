@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from decorators.network_decorator import Network
+from decorators.config_decorator import Config
 from decorators.database_decorator import Database
 from data_access.db_model import Status
 from repositories.subscription_repository import SubscriptionRepository
 from datetime import datetime,timedelta
 
 @Network()
-@Database('la-estores-hiring-challenge-back-subscription-dbaccess')
-def update_status(session,event,context):
+@Config()
+@Database()
+def update_status(session,event,context,**kwargs):
 
     body = event['body']
     subscription_id = body['id']
