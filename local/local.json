@@ -1,0 +1,9 @@
+{
+    "database_type":"postgresql",
+    "driver":"psycopg2",
+    "db_user":"test_user",
+    "db_password":"test_pass",
+    "db_host":"localhost",
+    "db_port":"5432",
+    "db_name":"la_estores_hiring_challenge_back_subscription"
+}

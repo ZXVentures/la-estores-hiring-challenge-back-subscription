@@ -1,12 +1,11 @@
-import uuid, sys, os
+import uuid
+import os
+import sys
 
-from utils.date_utility import DateUtility
-from sqlalchemy import Column, ForeignKey, String, Integer, Text, Float, DateTime, Boolean, Binary
+from sqlalchemy import Column, ForeignKey, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy.sql.sqltypes import Numeric
-from sqlalchemy.orm.persistence import post_update
-from sqlalchemy.sql.schema import ForeignKeyConstraint
+from sqlalchemy.orm import relationship
+from utils.date_utility import DateUtility
 
 Base = declarative_base()
 
@@ -19,7 +18,6 @@ class ClubStatus(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     
     name = Column(String(128))
-    create_date = Column(DateTime, default=DateUtility.utc_now)
     
     club_status_history = relationship("ClubStatusHistory", back_populates="club_status")
 
@@ -34,8 +32,8 @@ class ClubStatusHistory(Base):
     
     club_id = Column(Integer, ForeignKey('club.id', ondelete="RESTRICT"))
     club_status_id = Column(Integer, ForeignKey('club_status.id', ondelete="RESTRICT"))
-    effect_date = Column(DateTime, default=DateUtility.utc_now())
-    create_date = Column(DateTime, default=DateUtility.utc_now())
+    effect_date = Column(DateTime, default=DateUtility.utc_now)
+    create_date = Column(DateTime, default=DateUtility.utc_now)
     details = Column(String(256))
     
     club = relationship("Club",back_populates="club_status_history")
@@ -72,7 +70,6 @@ class Status(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     
     name = Column(String(128))
-    create_date = Column(DateTime, default=DateUtility.utc_now())
     
     subscription_status_history = relationship("SubscriptionStatusHistory", back_populates="status")
     
@@ -87,12 +84,13 @@ class SubscriptionStatusHistory(Base):
     
     subscription_id = Column(String(36), ForeignKey('subscription.id', ondelete="RESTRICT"))
     status_id = Column(Integer, ForeignKey('status.id', ondelete="RESTRICT"))
-    effect_date = Column(DateTime, default=DateUtility.utc_now())
-    create_date = Column(DateTime, default=DateUtility.utc_now())
+    effect_date = Column(DateTime, default=DateUtility.utc_now)
+    create_date = Column(DateTime, default=DateUtility.utc_now)
     details = Column(String(256))
     
     subscription = relationship("Subscription",back_populates="subscription_status_history")
     status = relationship("Status",back_populates="subscription_status_history")
+
 
 
 here = os.path.dirname(os.path.realpath(__file__))

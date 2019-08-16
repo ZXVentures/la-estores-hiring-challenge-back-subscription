@@ -3,7 +3,7 @@ import os, sys
 
 from utils.date_utility import DateUtility
 from utils.chronological_queries_tools import ChronologicalQueriesTools
-from lib.data_access.db_model import Club, ClubStatus, ClubStatusHistory
+from data_access.db_model import Club, ClubStatus, ClubStatusHistory
 from sqlalchemy import and_, desc, asc, func
 
 class ClubRepository():
