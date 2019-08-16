@@ -30,13 +30,11 @@ def upgrade():
     op.create_table('club_status',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('name', sa.String(length=128), nullable=True),
-    sa.Column('create_date', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('status',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('name', sa.String(length=128), nullable=True),
-    sa.Column('create_date', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('club_status_history',
@@ -73,28 +71,26 @@ def upgrade():
 
     status = table('status',
         column('id', Integer),
-        column('name', String(128)),
-        column('create_date', DateTime)
+        column('name', String(128))
     )
     club_status = table('club_status',
         column('id', Integer),
-        column('name', String(128)),
-        column('create_date', DateTime)
+        column('name', String(128))
     )
     
 
     op.bulk_insert(status,
     [
-        {'id':1, 'name':'ATIVO', 'create_date':DateUtility.utc_now()},
-        {'id':2, 'name':'CANCELADO', 'create_date':DateUtility.utc_now()},
-        {'id':3, 'name':'PAUSADO', 'create_date':DateUtility.utc_now()}
+        {'id':1, 'name':'ATIVO'},
+        {'id':2, 'name':'CANCELADO'},
+        {'id':3, 'name':'PAUSADO'}
     ]
     )
     op.bulk_insert(club_status,
     [
-        {'id':1, 'name':'ATIVO', 'create_date':DateUtility.utc_now()},
-        {'id':2, 'name':'FECHADO', 'create_date':DateUtility.utc_now()},
-        {'id':3, 'name':'INATIVO', 'create_date':DateUtility.utc_now()}
+        {'id':1, 'name':'ATIVO'},
+        {'id':2, 'name':'FECHADO'},
+        {'id':3, 'name':'INATIVO'}
     ]
     )
 
