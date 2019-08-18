@@ -2,6 +2,6 @@ update_status:
   handler: functions/subscription_handler.update_status
   events:
     - http:
-        path: /subscription/update/{id}
+        path: /subscription/status/{id}
         method: post
         cors: true
